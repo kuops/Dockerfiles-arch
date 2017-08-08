@@ -2,7 +2,7 @@ FROM alpine:latest
 
 ENV SONAR_SCANNER_VERSION 3.0.3.778
 
-RUN apk add --no-cache openssl \
+RUN apk add --update --no-cache openssl \
 		ca-certificates \
     && cd /usr/local \
     && wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip \ 
