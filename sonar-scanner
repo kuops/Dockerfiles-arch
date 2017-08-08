@@ -1,14 +1,16 @@
 FROM alpine:latest
 
 ENV SONAR_SCANNER_VERSION 3.0.3.778
-ENV SONAR_SCANNER_URL https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip
-ENV WGET_OPS --no-check-certificate
 
 WORKDIR /usr/local
 
-RUN wget $WGET_OPS $SONAR_SCANNER_URL \ 
-    && unzip -d /usr/local sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip && \
-    ln -s /usr/local/sonar-scanner-3.0.3.778-linux/bin/sonar-scanner /usr/local/bin/ && \
-    rm -f sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip && \
+RUN apk update \
+    && apk add ca-certificates openssl \
+    && update-ca-certificates \
+    && wget --no-check-certificate https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip \ 
+    && unzip -d /usr/local sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip \
+    && ln -s /usr/local/sonar-scanner-3.0.3.778-linux/bin/sonar-scanner /usr/local/bin/ \
+    && rm -f sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip \
+    && apk del ca-certificates openssl
 
 ENTRYPOINT ["/usr/local/bin/sonar-scanner"]
