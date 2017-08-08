@@ -4,7 +4,7 @@ ENV SONAR_SCANNER_VERSION 3.0.3.778
 
 RUN apk add --no-cache openssl \
 		ca-certificates \
-    && cd /usr/local
+    && cd /usr/local \
     && wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip \ 
     && unzip -d /usr/local sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip \
     && ln -s /usr/local/sonar-scanner-3.0.3.778-linux/bin/sonar-scanner /usr/local/bin/ \
