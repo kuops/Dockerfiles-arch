@@ -20,8 +20,8 @@ RUN yum update \
     && make -C /redis-4.0.1 -j "$(nproc)" \
     && make -C /redis-4.0.1 install \
     && cp /redis-4.0.1/src/redis-trib.rb /usr/local/bin/ \
-    && chmod +x /usr/src/redis/src/redis-trib.rb \
-    && rm -r /usr/src/redis \
+    && rm -rf /redis-4.0.1/redis \
+    && rm -f redis.tar.gz
     && gem install redis \
     && yum remove -y wget wget gcc make zlib-devel openssl-devel \
     && yum clean all \
