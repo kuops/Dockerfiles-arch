@@ -1,23 +1,31 @@
-FROM debian:jessie-slim
+FROM centos:7
 
-RUN     apt-get update \
-	&& apt-get install -y --no-install-recommends wget gcc libc6-dev make curl ca-certificates \
-	&& curl -sSL https://get.rvm.io | bash -s stable \
-	&& rvm install 2.3.4 \
-	&& rvm --default use 2.3.4 \
-	&& rm -rf /var/lib/apt/lists/* \
-        && wget -O redis.tar.gz http://download.redis.io/releases/redis-4.0.1.tar.gz \
-        && mkdir -p /usr/src/redis \
-        && tar -xzf redis.tar.gz -C /usr/src/redis --strip-components=1 \
-        && rm redis.tar.gz \
-        && make -C /usr/src/redis -j "$(nproc)" \
-        && make -C /usr/src/redis install \
-        && cp /usr/src/redis/src/redis-trib.rb /usr/local/bin/ \
-        && chmod +x /usr/src/redis/src/redis-trib.rb \
-        && rm -r /usr/src/redis \
-        && gem install redis \
-        && apt-get purge -y --auto-remove wget gcc libc6-dev make curl ca-certificates \
-        && mkdir /data
+RUN yum update \
+    && yum -y install wget gcc make zlib-devel openssl-devel \
+    && wget https://cache.ruby-lang.org/pub/ruby/2.4/ruby-2.4.1.tar.gz \
+    && tar -xf ruby-2.4.1.tar.gz \
+    && cd /ruby-2.4.1 \
+    && ./configure --prefix=/usr/local --disable-install-rdoc \
+    && make -j $(nproc) install \
+    && cd / \
+    && rm -rf /ruby-2.4.1 \
+    && rm ruby-2.4.1.tar.gz \
+    && wget https://rubygems.org/rubygems/rubygems-2.6.12.tgz \
+    && tar xf rubygems-2.6.12.tgz \
+    && cp  -a /rubygems-2.6.12/bin/* /usr/local/bin/ \
+    && rm rubygems-2.6.12* -rf \
+    && wget -O redis.tar.gz http://download.redis.io/releases/redis-4.0.1.tar.gz \
+    && tar -xzf redis.tar.gz
+    && rm -f redis.tar.gz \
+    && make -C /redis-4.0.1 -j "$(nproc)" \
+    && make -C /redis-4.0.1 install \
+    && cp /redis-4.0.1/src/redis-trib.rb /usr/local/bin/ \
+    && chmod +x /usr/src/redis/src/redis-trib.rb \
+    && rm -r /usr/src/redis \
+    && gem install redis \
+    && yum remove -y wget wget gcc make zlib-devel openssl-devel \
+    && yum clean all
+    && mkdir /data
 
 VOLUME /data
 WORKDIR /data
