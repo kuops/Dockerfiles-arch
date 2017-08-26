@@ -1,6 +1,6 @@
 FROM debian:jessie-slim
 RUN apt-get update \
-    && apt-get -y install --no-install-recommends wget ca-certificates gcc libc6-dev make ruby2.2 \
+    && apt-get -y install --no-install-recommends wget ca-certificates gcc libc6-dev make ruby-full \
     && rm -rf /var/lib/apt/lists/* \
     && wget -O redis.tar.gz http://download.redis.io/releases/redis-4.0.1.tar.gz \
     && mkdir -p /usr/src/redis \
