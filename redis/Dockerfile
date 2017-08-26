@@ -2,7 +2,7 @@ FROM debian:jessie-slim
 RUN apt-get update \
     && apt-get -y install --no-install-recommends wget ca-certificates gcc libc6-dev make curl \
     && curl -L https://get.rvm.io | bash -s stable \
-    && source ~/.rvm/scripts/rvm \
+    && . ~/.rvm/scripts/rvm \
     && rvm requirements \
     && rvm install 2.3.0 \
     && rvm use 2.3.0 --default \
