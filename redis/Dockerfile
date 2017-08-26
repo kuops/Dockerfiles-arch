@@ -1,9 +1,11 @@
 FROM debian:jessie-slim
 RUN apt-get update \
-    && apt-get -y install --no-install-recommends wget ca-certificates gcc libc6-dev make python-software-properties software-properties-common \
-    && apt-add-repository ppa:brightbox/ruby-ng \
-    && apt-get update \
-    && apt-get -y install ruby2.3 \
+    && apt-get -y install --no-install-recommends wget ca-certificates gcc libc6-dev make curl \
+    && curl -L https://get.rvm.io | bash -s stable \
+    && source ~/.rvm/scripts/rvm \
+    && rvm requirements \
+    && rvm install 2.3.0 \
+    && rvm use 2.3.0 --default \
     && wget -O redis.tar.gz http://download.redis.io/releases/redis-4.0.1.tar.gz \
     && mkdir -p /usr/src/redis \
     && tar -xzf redis.tar.gz -C /usr/src/redis --strip-components=1 \
