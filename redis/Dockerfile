@@ -1,5 +1,5 @@
 FROM debian:jessie-slim
-RUN apt-add-repository ppa:brightbox/ruby-ng
+RUN apt-add-repository ppa:brightbox/ruby-ng \
     && apt-get update \
     && apt-get -y install --no-install-recommends wget ca-certificates gcc libc6-dev make ruby-full \
     && rm -rf /var/lib/apt/lists/* \
