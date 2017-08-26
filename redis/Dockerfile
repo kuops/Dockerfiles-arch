@@ -1,7 +1,7 @@
 FROM debian:jessie-slim
 RUN apt-add-repository ppa:brightbox/ruby-ng \
     && apt-get update \
-    && apt-get -y install --no-install-recommends wget ca-certificates gcc libc6-dev make ruby-full \
+    && apt-get -y install --no-install-recommends wget ca-certificates gcc libc6-dev make ruby-2.2 \
     && rm -rf /var/lib/apt/lists/* \
     && wget -O redis.tar.gz http://download.redis.io/releases/redis-4.0.1.tar.gz \
     && mkdir -p /usr/src/redis \
