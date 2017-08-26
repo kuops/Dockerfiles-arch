@@ -15,7 +15,7 @@ RUN yum update \
     && cp  -a /rubygems-2.6.12/bin/* /usr/local/bin/ \
     && rm rubygems-2.6.12* -rf \
     && wget -O redis.tar.gz http://download.redis.io/releases/redis-4.0.1.tar.gz \
-    && tar -xzf redis.tar.gz
+    && tar -xzf redis.tar.gz \
     && rm -f redis.tar.gz \
     && make -C /redis-4.0.1 -j "$(nproc)" \
     && make -C /redis-4.0.1 install \
@@ -24,7 +24,7 @@ RUN yum update \
     && rm -r /usr/src/redis \
     && gem install redis \
     && yum remove -y wget wget gcc make zlib-devel openssl-devel \
-    && yum clean all
+    && yum clean all \
     && mkdir /data
 
 VOLUME /data
