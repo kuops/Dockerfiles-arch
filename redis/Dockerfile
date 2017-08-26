@@ -21,7 +21,6 @@ RUN yum update \
     && make -C /redis-4.0.1 install \
     && cp /redis-4.0.1/src/redis-trib.rb /usr/local/bin/ \
     && rm -rf /redis-4.0.1/redis \
-    && rm -f redis.tar.gz
     && gem install redis \
     && yum remove -y wget wget gcc make zlib-devel openssl-devel \
     && yum clean all \
