@@ -3,7 +3,7 @@ FROM debian:jessie-slim
 RUN     apt-get update \
 	&& apt-get install -y --no-install-recommends wget gcc libc6-dev make curl ca-certificates \
 	&& curl -sSL https://get.rvm.io | bash -s stable \
-	&& rvm install 2.3.4
+	&& rvm install 2.3.4 \
 	&& rvm --default use 2.3.4 \
 	&& rm -rf /var/lib/apt/lists/* \
         && wget -O redis.tar.gz http://download.redis.io/releases/redis-4.0.1.tar.gz \
