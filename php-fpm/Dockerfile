@@ -20,8 +20,7 @@ RUN apk add --no-cache --virtual .php-build-deps \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/lib \
     && docker-php-ext-install -j$(nproc) gd soap intl gmp bcmath mbstring zip pcntl sockets bz2 shmop readline exif opcache
 
-RUN pecl channel-update pecl.php.net \
-    && pecl install memcached \
+RUN pecl install memcached \
     && pecl install redis \
     && pecl install xdebug-2.6.0 \
     && apk del --no-cache .php-build-deps
