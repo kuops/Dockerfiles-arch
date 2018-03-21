@@ -1,7 +1,6 @@
 FROM php:fpm-alpine3.7
 
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
-    && apk add --no-cache --virtual .php-build-deps \
+RUN apk add --no-cache --virtual .php-build-deps \
 		libmemcached-dev \
                 bzip2-dev \
                 gd-dev \
@@ -11,9 +10,9 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
                 readline-dev \
                 jpeg-dev \
                 libxml2-dev \
-                icu-dev\
-                gmp-dev\
-                libedit-dev\
+                icu-dev \
+                gmp-dev \
+                libedit-dev \
     && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-configure mysqli --with-mysqli=mysqlnd \
