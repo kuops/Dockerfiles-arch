@@ -5,4 +5,4 @@ RUN npm install hexo-cli -g \
 
 WORKDIR  /app
 
-CMD ["hexo"]
+CMD ["hexo","s"]
