@@ -1,5 +1,5 @@
-FROM debian:wheezy-slim
-ENV SONAR_SCANNER_VERSION 3.0.3.778
+FROM debian:9-slim
+ENV SONAR_SCANNER_VERSION 3.2.0.1227
 
 RUN apt-get update && \
     apt-get install -y wget unzip && \
@@ -11,5 +11,5 @@ RUN apt-get update && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
-WORKDIR /code
+WORKDIR /app
 ENTRYPOINT ["/usr/local/bin/sonar-scanner"]
