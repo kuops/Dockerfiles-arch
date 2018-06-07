@@ -1,9 +1,9 @@
 FROM jenkins/jenkins:latest
 
 COPY plugins.txt /plugins.txt
-
-ENV DEBIAN_FRONTEND noninteractive
-ENV TimeZone=Asia/Shanghai
+USER root
+ENV  DEBIAN_FRONTEND noninteractive
+ENV  TimeZone=Asia/Shanghai
 
 RUN /usr/local/bin/plugins.sh /plugins.txt \
     && apt-get update \
