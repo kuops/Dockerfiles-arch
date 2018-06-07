@@ -15,7 +15,7 @@ docker run -v $PWD/$BLOG_DIR_NAME:/app  kuops/hexo:latest  npm install
 ```
 docker run -d \
     --name hexo \
-    -v $PWD/blog:/app \
+    -v $PWD/$BLOG_DIR_NAME:/app \
     -p 4000:4000 \
     kuops/hexo
 ```
