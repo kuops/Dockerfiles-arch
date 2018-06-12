@@ -11,7 +11,7 @@ RUN /usr/local/bin/plugins.sh /plugins.txt \
     && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
     && locale-gen en_US.UTF-8 \
     && dpkg-reconfigure locales \
-    && /usr/sbin/update-locale LANG=en_US.UTF-8 \
+    && /usr/sbin/update-locale LANG=en_US.UTF-8
 
 RUN ln -snf /usr/share/zoneinfo/${TimeZone} /etc/localtime \
     && echo "Asia/Shanghai" > /etc/timezone
