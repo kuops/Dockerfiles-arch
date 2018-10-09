@@ -9,7 +9,7 @@ services:
     ports :
       - "15000:15000/tcp"
     environment :
-      - PASSWORD=123456
+      - PASSWORD=9I3T!R0
       - PORT=15000
     container_name : shadowsocks
     privileged: true
@@ -23,7 +23,7 @@ services:
     container_name : kcptun
     restart : always
     ports:
-      - "15001:15001"
+      - "15001:15001/udp"
     privileged: true
     command: ["kcptun-server", "-t", "shadowsocks:15000", "-l", ":15001"]
     depends_on:
