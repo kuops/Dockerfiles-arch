@@ -1,8 +1,18 @@
+FROM golang:1.11-alpine AS build
+
+RUN apk add git
+
+RUN git clone https://github.com/juliusv/prometheus_demo_service.git \
+    && go get github.com/prometheus/client_golang/prometheus 
+
+WORKDIR prometheus_demo_service
+
+RUN  CGO_ENABLED=0 GOOS=linux go build -a -o prometheus_demo_service .
+
+
 FROM alpine
 
-RUN apk add curl \
-    && curl -LO https://github.com/juliusv/prometheus_demo_service/releases/download/0.0.4/prometheus_demo_service-0.0.4.linux.amd64.tar.gz \
-    && tar xf prometheus_demo_service-0.0.4.linux.amd64.tar.gz \
-    && apk del curl
+COPY --from=build /prometheus_demo_service/prometheus_demo_service .
 
-ENTRYPOINT ["./prometheus_demo_service"] 
+CMD ["./prometheus_demo_service"]  
+
