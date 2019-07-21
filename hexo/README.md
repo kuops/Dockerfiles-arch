@@ -6,7 +6,7 @@
 
 ```
 BLOG_DIR_NAME=blog
-docker run -v $PWD/$BLOG_DIR_NAME:/app/$BLOG_DIR_NAME  kuops/hexo:latest init $BLOG_DIR_NAME
+docker run -v $PWD/$BLOG_DIR_NAME:/app/$BLOG_DIR_NAME  kuops/hexo:latest hexo init $BLOG_DIR_NAME
 ```
 
 安装依赖
@@ -19,7 +19,7 @@ docker run -v $PWD/$BLOG_DIR_NAME:/app  kuops/npm:latest  yarn install
 
 ```
 docker run -d \
-    --name hexo \
+    --name hexo-server \
     -v $PWD/$BLOG_DIR_NAME:/app \
     -p 4000:4000 \
     kuops/hexo

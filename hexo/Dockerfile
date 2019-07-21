@@ -1,5 +1,8 @@
 FROM kuops/node:latest
 
-RUN yarn global add hexo
+RUN apk add --no-cache git \
+    && yarn global add hexo
 
-ENTRYPOINT [ "hexo" ]
+WORKDIR /app
+
+CMD [ "hexo","server","-l" ]
