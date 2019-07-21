@@ -19,7 +19,6 @@ RUN addgroup -S -g 82 www-data \
                 perl-dev \
                 libedit-dev \
                 mercurial \
-                bash \
                 alpine-sdk \
                 findutils \
     && tempdir=$(mktemp -d) \
@@ -75,9 +74,9 @@ RUN addgroup -S -g 82 www-data \
     && make install \
     && cd \
     && rm -rf $tempdir \
-    && apk del .build-dep \
+    && apk del curl gcc \
     && ln -sf /dev/stdout /var/log/nginx/access.log \
-    && ln -sf /dev/stderr /var/log/nginx/error.log \
+    && ln -sf /dev/stderr /var/log/nginx/error.log 
 
 EXPOSE 80 443
 
