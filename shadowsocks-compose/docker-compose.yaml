@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  shadowsocks:
+    build :
+      context : ./shadowsocks
+      dockerfile : Dockerfile
+    image: shadowsocks:1.2.1
+    ports :
+      - "15000:15000/tcp"
+    environment :
+      - PASSWORD=9I3T!R0
+      - PORT=15000
+    container_name : shadowsocks
+    privileged: true
+    restart : always
+
+  kcptun:
+    build :
+      context : ./kcptun
+      dockerfile : Dockerfile
+    image: kcptun:1.0
+    container_name : kcptun
+    restart : always
+    ports:
+      - "15001:15001/udp"
+    privileged: true
+    command: ["kcptun-server", "-t", "shadowsocks:15000", "-l", ":15001"]
+    depends_on:
+      - shadowsocks
+

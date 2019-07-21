@@ -1,0 +1,67 @@
+FROM php:7.2-fpm-alpine
+
+ENV TIMEZONE="Asia/Shanghai" 
+
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
+        && apk update \
+# setting timezone
+	&& apk add --no-cache tzdata \
+	&& ln -sf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
+	&& echo "${TIMEZONE}" > /etc/timezone
+
+# install gd
+RUN     apk add --no-cache --virtual .gd-build-deps gd-dev \
+        && apk add --no-cache --virtual .gd-run-deps libpng-dev \
+	&& docker-php-ext-install -j$(nproc) gd \
+        && apk del --no-cache .gd-build-deps
+
+# install bcmath
+RUN     docker-php-ext-install -j$(nproc) bcmath
+
+# install bz2
+RUN     apk add --no-cache --virtual .bz2-run-deps bzip2-dev \
+        && docker-php-ext-install -j$(nproc) bz2
+
+# install calendar
+RUN     docker-php-ext-install -j$(nproc) calendar
+
+# install exif  
+RUN     docker-php-ext-install -j$(nproc) exif
+
+# install gettext
+RUN     apk add --no-cache --virtual .run-deps gettext-dev \
+        && docker-php-ext-install -j$(nproc) gettext 
+
+#install mysqli
+RUN     docker-php-ext-install -j$(nproc) mysqli
+
+#install pdo_mysql  
+RUN     docker-php-ext-install -j$(nproc) pdo_mysql 
+
+#install sockets
+RUN     docker-php-ext-install -j$(nproc) sockets
+
+#install pcntl
+RUN     docker-php-ext-install -j$(nproc) pcntl
+
+#install wddx
+RUN   apk add --no-cache --virtual .xml-run-deps libxml2-dev  \
+       &&  docker-php-ext-install -j$(nproc) wddx
+
+#install xmlrpc 
+RUN     docker-php-ext-install -j$(nproc) xmlrpc 
+
+#install xsl
+RUN   apk add --no-cache --virtual .xml-run-deps libxslt-dev \
+      && docker-php-ext-install -j$(nproc) xsl
+
+
+#install opcache
+RUN     docker-php-ext-install -j$(nproc) opcache
+
+#install zip
+RUN   apk add --no-cache --virtual .zlib-run-deps zlib-dev \
+      && docker-php-ext-install -j$(nproc) zip
+
+# clean cache
+RUN     rm -rf /var/cache/apk/* 
