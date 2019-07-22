@@ -4,9 +4,10 @@ ENV NGINX_VERSION 1.17.1
 
 RUN addgroup -S -g 82 www-data \
     && adduser -D -H -u 82 -S -s /sbin/nologin -G www-data www-data \
-    && apk add --update --no-cache --virtual .build-dep \
+    && apk add geoip pcre \
+    && apk add --update --no-cache --virtual .build-deps \
+                build-base \
                 curl \
-                gcc \
                 libc-dev \
                 make \
                 openssl-dev \
@@ -22,6 +23,8 @@ RUN addgroup -S -g 82 www-data \
                 alpine-sdk \
                 findutils \
     && tempdir=$(mktemp -d) \
+    && mkdir -p /var/cache/nginx \
+    && chown -R www-data:www-data /var/cache/nginx \
     && cd ${tempdir} \
     && curl -LO http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz \
     && tar xf nginx-1.17.1.tar.gz \
@@ -74,7 +77,7 @@ RUN addgroup -S -g 82 www-data \
     && make install \
     && cd \
     && rm -rf $tempdir \
-    && apk del curl gcc \
+    && apk del .build-deps  \
     && ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log 
 
