@@ -6,7 +6,7 @@ ENV  GOSUMDB="off"
 
 RUN  apk add git \
      &&  git clone -b 'v20190910' --depth 1 https://github.com/xtaci/kcptun.git \
-     &&  cd server \
+     &&  cd kcptun/server \
      && go build -o $GOPATH/bin/kcptun-server
 
 FROM kuops/alpine:latest 
