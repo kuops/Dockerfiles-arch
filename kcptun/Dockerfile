@@ -4,7 +4,10 @@ ENV  GO111MODULE="on"
 ENV  GOPROXY="https://goproxy.cn,direct"
 ENV  GOSUMDB="off"
 
-RUN  go build -o $GOPATH/bin/kcptun-server github.com/xtaci/kcptun/server
+RUN  apk add git \
+     &&  git clone -b 'v20190910' --depth 1 https://github.com/xtaci/kcptun.git \
+     &&  cd server \
+     && go build -o $GOPATH/bin/kcptun-server
 
 FROM kuops/alpine:latest 
 

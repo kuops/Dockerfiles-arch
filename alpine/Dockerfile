@@ -11,6 +11,6 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
           curl \
           iproute2 \
           busybox-extras \
-    && rm -rf /var/cache/apk
+    && rm -rf /var/cache/apk/*
 
 CMD [ "/bin/bash" ]
