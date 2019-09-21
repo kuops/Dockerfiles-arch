@@ -7,4 +7,4 @@ LISTEN=${LISTEN:-":29900"}
 PASSWORD=${PASSWORD:-123456}
 
 
-/usr/local/bin/kcptun-server -t ${SHADOWSOCK_ADDR} -l ${LISTEN} -k ${PASSWORD} 
+/usr/local/bin/kcptun-server -t ${SHADOWSOCK_ADDR} -l ${LISTEN} --key ${PASSWORD} 
