@@ -8,4 +8,3 @@ PASSWORD=${PASSWORD:-123456}
 
 
 /usr/bin/kcptun-server -t ${SHADOWSOCK_ADDR} -l ${LISTEN} -k ${PASSWORD} 
-

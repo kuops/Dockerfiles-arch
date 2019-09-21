@@ -10,4 +10,6 @@ FROM kuops/alpine:latest
 
 COPY --from=builder /go/bin/kcptun-server /usr/local/bin/
 
-CMD ["kcptun-server"]
+COPY entrypoint.sh .
+
+CMD ["./entrypoint.sh"]
