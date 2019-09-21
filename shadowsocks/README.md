@@ -1,5 +1,9 @@
 # shadowsocks
 
+default port: 8388
+default password: 123456
+default encrypt_mothod: aes-256-cfb
+
 ## Usage
 
 ```
