@@ -8,7 +8,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     && apk add --no-cache tzdata \
           bash \
           curl \
-          telnet \
-          iproute2 
+          iproute2 \
+          busybox-extras
 
 CMD [ "/bin/bash" ]
