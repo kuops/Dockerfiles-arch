@@ -9,7 +9,7 @@ default encrypt_mothod: aes-256-cfb
 ```
 docker run -d \
     -e PASSWORD=123456 \
-    -e PORT=16000 \
+    -e SERVER_PORT=16000 \
     -e ENCRYPT_METHOD=aes-256-cfb \
     kuops/shadowsocks
 ```
