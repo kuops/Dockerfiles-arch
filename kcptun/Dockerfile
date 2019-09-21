@@ -1,13 +1,13 @@
-FROM debian:9.5-slim
+FROM kuops/golang:latest as builder
 
-ENV Kcptun_Url https://github.com/xtaci/kcptun/releases/download/v20181002/kcptun-linux-amd64-20181002.tar.gz
-ENV Deps_Soft curl
+ENV  GO111MODULE="on"
+ENV  GOPROXY="https://goproxy.cn,direct"
+ENV  GOSUMDB="off"
 
-RUN apt-get update \
-    && apt-get install -y ${Deps_Soft} \
-    && curl -L ${Kcptun_Url} |tar xz -C /usr/local/bin server_linux_amd64 \
-    && mv /usr/local/bin/server_linux_amd64 /usr/local/bin/kcptun-server \
-    && rm -rf /var/lib/apt/lists/* \
-    && apt-get purge -y --auto-remove ${Deps_Soft} 
+RUN  go build -o $GOPATH/bin/kcptun-server github.com/xtaci/kcptun/server
+
+FROM kuops/alpine:latest 
+
+COPY --from=builder /go/bin/kcptun-server /usr/local/bin/
 
 CMD ["kcptun-server"]
