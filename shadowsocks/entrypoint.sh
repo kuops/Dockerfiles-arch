@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 set -x
 set -e
 
 PASSWORD=${PASSWORD:-123456}
-PORT=${PORT:-15000}
-ENCRYPT_METHOD=${ENCRYPT_METHOD:-"AES-256-CFB"}
+SERVER_PORT=${SERVER_PORT:-15000}
+ENCRYPT_METHOD=${ENCRYPT_METHOD:-"aes-256-cfb"}
 
-/usr/local/bin/go-shadowsocks2 -s "ss://$ENCRYPT_METHOD:$PASSWORD@:$PORT" -verbose
+/usr/bin/ssserver -p ${SERVER_PORT} -k ${PASSWORD} -m ${ENCRYPT_METHOD}

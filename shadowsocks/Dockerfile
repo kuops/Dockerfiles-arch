@@ -1,6 +1,6 @@
 FROM kuops/python:latest
 
-RUN apk add --no-cache python3 \
+RUN pip3 install shadowsocks
 
 COPY entrypoint.sh .
 

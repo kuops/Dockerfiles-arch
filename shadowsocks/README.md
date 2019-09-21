@@ -1,14 +1,11 @@
 # shadowsocks
 
-using go-shadowsocks2 server 
-
-
 ## Usage
 
 ```
 docker run -d \
     -e PASSWORD=123456 \
-    -e PORT=15000 \
-    -e ENCRYPT_METHOD=AES-256-CFB \
-    imagename
+    -e PORT=16000 \
+    -e ENCRYPT_METHOD=aes-256-cfb \
+    kuops/shadowsocks
 ```
